@@ -1,0 +1,27 @@
+<div class="sp-container">
+	<mat-toolbar>
+		<button  mat-icon-button class="menu-button" (click)="sidenav.toggle()" aria-label="Example icon-button with heart icon">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<span>My Application</span>
+		<span class="w-100 d-flex justify-content-end nav-bar">
+			<mat-nav-list class="d-flex ">
+				<ng-container *ngFor="let route of getRouteEntries()">
+					<a mat-list-item [routerLink]="route[1]" style="width: fit-content;" >{{ route[0] }}</a>
+				</ng-container>
+			</mat-nav-list>
+		</span>
+	</mat-toolbar>
+	<mat-sidenav-container class="side-nav-container" [hasBackdrop]="true" >
+		<mat-sidenav #sidenav mode="over" [fixedInViewport]="false" class="side-nav" >
+			<mat-nav-list>
+					<ng-container *ngFor="let route of getRouteEntries()">
+						<a mat-list-item [routerLink]="route[1]" (click)="sidenav.toggle()"  >{{ route[0] }}</a>
+					</ng-container>
+			</mat-nav-list>
+		</mat-sidenav>
+		<mat-sidenav-content>
+			<router-outlet></router-outlet>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
+</div>

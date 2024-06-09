@@ -1,0 +1,53 @@
+.greeting {
+	box-shadow: 0px 0px 5px 1px black inset;
+	width: fit-content	;
+	margin: auto;
+	padding: 5px 20px;
+	border-radius: 5px;
+	// animation: animator 0.5s linear;
+	animation: speed-break 1.4s  ;
+	// transition: ease-in-out;
+	transform-origin: center;
+	transform: rotate(720deg) translateY(0px) translateX(0px);
+}
+
+// .greeting-float {
+	// animation: start-floating 3s infinite;
+	// animation-delay: 1s;
+// }
+@keyframes animator {
+	0%{
+		transform: rotate(0deg) scale(0);
+	}
+	100%{
+		transform: rotate(1440deg) scale(1);
+	}
+
+}	
+
+@keyframes start-floating {
+	0%{
+		transform: translateY(0px);
+	}
+	50%{
+		transform: translateY(10px);
+	}
+	100%{
+		transform: translateY(0px);
+	}
+}
+
+
+@keyframes speed-break {
+	0% {
+		transform: translateX(-200px) skewX(0deg)
+		// opacity: 0.5;
+	}
+	50% {
+		transform: translateX(0px) skewX(2deg) rotateZ(2deg)
+		// opacity: 1;
+	}
+	100%{
+		transform: translateX(0px) skewX(0deg)
+	}
+}

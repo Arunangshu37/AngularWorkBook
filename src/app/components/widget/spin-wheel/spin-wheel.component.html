@@ -1,0 +1,126 @@
+<div class="container" style="height: 100%;">
+	<div class="row" style="height: 100%;">
+		<div class="col-md-4 d-flex flex-column align-items-center">
+			<h1>Spin Wheel</h1>
+			<div class="d-flex">
+				<div class="arrow m-auto">&rarr;</div>
+				<div class="wheel" #wheel></div>
+			</div>
+			<div class="d-flex align-self-stretch">
+				<button mat-raised-button style="flex: 1;" (click)="spinWheel()"
+					[disabled]="disableSpinWheelButton">Spin wheel</button>
+				<button mat-raised-button (click)="stopWheel()" [disabled]="disableForceStopButton">Force stop</button>
+			</div>
+		</div>
+		<div class="col-md-8 d-flex flex-column" style="height: 100%;">
+			<mat-tab-group style="overflow: auto;">
+				<mat-tab label="What to do?">
+					<h3>1, 2, 3... Spin!</h3>
+					<ul>
+						<li>Simply just spin the wheel to randomly decide a number between 1 to 10</li>
+						<li>You can as well try to be a little biased by manually stopping hte wheel.</li>
+					</ul>
+				</mat-tab>
+				<mat-tab label="HTML">
+					<code>
+							<pre>
+	&lt;div class="container"&gt;
+		&lt;div class="row"&gt;
+			&lt;div class="col-md-4 d-flex flex-column align-items-center"&gt;
+				&lt;h1&gt;Spin Wheel&lt;/h1&gt;
+				&lt;div class="d-flex"&gt;
+					&lt;div class="arrow m-auto"&gt;&rarr;&lt;/div&gt;
+					&lt;div class="wheel" #wheel&gt;&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class="d-flex align-self-stretch"&gt;
+					&lt;button mat-raised-button style="flex: 1;" (click)="spinWheel()"
+						[disabled]="disableSpinWheelButton"&gt;Spin wheel&lt;/button&gt;
+					&lt;button mat-raised-button (click)="stopWheel()" 
+						[disabled]="disableForceStopButton"&gt;Force stop&lt;/button&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+							</pre>
+						</code>
+				</mat-tab>
+				<mat-tab label="TS">
+					<code>
+							<pre>
+	&#64;ViewChild('wheel') public wheel!: ElementRef;
+	public disableForceStopButton: boolean = true;
+	public disableSpinWheelButton: boolean = false;
+	
+	private counter: number = 2360;
+	private startRotating: boolean = false;
+	private forceStopWheel: boolean = false;
+	
+	public spinWheel(): void &#123;
+		this.startRotating = !this.startRotating;
+		if(!this.startRotating) &#123;
+			return
+		&#125;
+		this.disableForceStopButton = false;
+		this.disableSpinWheelButton = true;
+		this.forceStopWheel = false;
+		// 1.  get the random value of length(x) between a defined range say 70 - 150
+		const length = 60 + Math.floor((Math.random() * 100) % 80);
+	
+		// 2. create an array of length(x) full of random numbers/degrees between 10 to 360 
+		this.counter = length;
+		const degrees:number[] = [];
+		do&#123;
+			degrees.push(Math.floor((Math.random() * 100)) % 360);
+			this.counter--;
+		&#125;while(this.counter!==0);
+	
+		// 3. set the interval to rotate the wheel based on the array of degrees   
+		let tempDegree = degrees[this.counter]
+		const callback = () => &#123;
+			this.counter++; 
+			if(this.counter >=length || this.forceStopWheel)&#123;
+				this.stopWheel();
+				return;
+			&#125;
+			tempDegree +=  degrees[this.counter]
+			this.wheel.nativeElement.style.transform = `rotate($&#123;tempDegree&#125;deg)`
+			setTimeout(callback, this.counter * 2 )
+		&#125;
+		setTimeout(callback, 10);
+	&#125;
+	
+	public stopWheel(): void &#123;
+		this.forceStopWheel = true;
+		this.disableForceStopButton = true;
+		this.disableSpinWheelButton = false;
+		this.counter = 0;
+		this.startRotating = false;
+	&#125;
+							</pre>
+						</code>
+
+				</mat-tab>
+				<mat-tab label="SCSS">
+					<code>
+							<pre>
+	.wheel &#123;
+		padding: 2px;
+		height: 200px;
+		width: 200px;
+		background-image: url(./../../../../assets/images/spin-wheel.png);
+		background-repeat: no-repeat;
+		background-size: cover;
+		transition: all 1s ease-out;
+	&#125;
+	
+	.arrow&#123;
+		font-size: 5rem;
+	&#125;
+		
+							</pre>
+						</code>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+	</div>
+</div>

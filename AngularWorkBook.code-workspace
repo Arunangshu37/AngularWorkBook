@@ -1,0 +1,57 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"isBackground": true,
+				"label": "Launch",
+				"command": "npm run start",
+				"type": "shell",
+				"args": [],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			},
+			{
+				"isBackground": true,
+				"label": "Lint:Fix",
+				"command": "npm run lint:fix",
+				"type": "shell",
+				"args": [],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			},
+			{
+				"isBackground": true,
+				"label": "Run tests",
+				"command": "npm run test",
+				"type": "shell",
+				"args": [],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			},
+			
+			
+		]
+	},
+	"settings": {}
+}

@@ -1,0 +1,14 @@
+.wheel {
+	padding: 2px;
+	height: 200px;
+	width: 200px;
+	background-image: url(./../../../../assets/images/spin-wheel.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	transition: all 1s ease-out;
+}
+
+.arrow{
+	font-size: 5rem;
+}
+

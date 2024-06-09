@@ -1,0 +1,16 @@
+<div class="scene m-5"  [ngStyle]="{'--w': dimension+'px', '--w4': 9*dimension+'px'}">
+	<div class="cube default-orientation cube-animator "  #cube  [ngStyle]="{'--w': dimension+'px'}">
+		@for (faceContent of faceContents; track $index ) {
+			@if($index === 5){
+				<div [ngClass]="['box'+($index+1) ]" [ngStyle]="{'--w': dimension+'px', '--wby2':dimension/2+'px', '--font-size': (dimension/7)+'px'}">
+					<div class="m-auto">{{whatShouldLearningBe}}</div> 
+				</div>
+			}
+			@else{
+				<div [ngClass]="['box'+($index+1) ]" [ngStyle]="{'--w': dimension+'px', '--wby2':dimension/2+'px', '--font-size': (dimension/7)+'px'}">
+					<div class="m-auto">{{faceContent}}</div>
+				</div>
+			}
+		}
+	</div>
+</div>

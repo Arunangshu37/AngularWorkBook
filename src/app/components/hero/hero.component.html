@@ -1,0 +1,29 @@
+<div (mousemove)="cubeRef.rotateCube($event)" (mousedown)="cubeRef.handleMouseDown()"
+	(mouseup)="cubeRef.handleMouseUp()" class="h-100">
+	<div class="px-4 py-2 my-2 text-center">
+		<div class="greeting-float ">
+			<h1 class="display-2 me-auto greeting ">{{greetings}}</h1>
+		</div>
+		<div class="d-flex justify-content-center">
+			<h1 class="display-5 fw-bold text-body-emphasis my-auto">A destination for</h1>
+			<div class="d-flex ">
+				<app-widget-rotatable-cube #cubeRef
+					[whatShouldLearningBe]="whatShouldLearningBe"
+					[faceContents]="['no-barrier', 'immersive', 'self-directed', 'transformative', 'quick and easy', '']"
+					[dimension]="130"> </app-widget-rotatable-cube>
+			</div>
+			<h1 class="display-5  fw-bold text-body-emphasis my-auto">learning.</h1>
+		</div>
+		<div class="col-lg-6 mx-auto">
+			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+				What platform would you like {{appName}} to be for learning platform for you?
+				<mat-form-field appearance="outline">
+					<mat-label>What's in your mind?</mat-label>
+					<input matInput placeholder="??????????????"  #inputRef [(ngModel)]="whatShouldLearningBe" name="whatShouldLearningBe	">
+					<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+					<mat-hint>Eg. fun, dynamic</mat-hint>
+				</mat-form-field>
+			</div>
+		</div>
+	</div>
+</div>

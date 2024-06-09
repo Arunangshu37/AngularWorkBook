@@ -1,0 +1,134 @@
+<div class="container height-100"(mousemove)="cubeRef.rotateCube($event)" (mousedown)="cubeRef.handleMouseDown()" (mouseup)="cubeRef.handleMouseUp()">
+	<div class="row h-100">
+		<div class="col-md-5 d-flex flex-column">
+			<h2>Rotatable cube</h2>
+
+			<div class="d-flex justify-content-center h-100 p-5" style="flex: 1;" >
+				<app-widget-rotatable-cube #cubeRef  [faceContents]="['This', 'is ', 'some', 'super', 'cool', 'stuff']" [dimension]="100" > </app-widget-rotatable-cube>
+			</div>
+		</div>
+		<div class="col-md-7 d-flex flex-column h-100" style="height: 100%; overflow: auto;">
+			<mat-tab-group style="overflow: auto;">
+				<mat-tab label="What to do?">
+					<h3>Make your impression with cubical points 😉</h3>
+					<ul>
+						<li>click anywhere in on the screen except the top menu bar and drag the mouse and see cube rotating in 3d</li>
+						<li>
+							<ul>This small widget is to give a <strong>very basic</strong> idea of 
+								<li>Usage of perspective in css</li>
+								<li>Concept of 3d css and rotation</li>
+								<li>Mouse event handlers</li>
+							</ul>
+						</li>
+					</ul>
+				</mat-tab>
+				<mat-tab label="HTML">
+					<code>
+	<pre>
+&lt;div class="scene m-5"&gt;
+	&lt;div class="cube"  #cube &gt;
+		&lt;div class="box1"&gt;1&lt;/div&gt;
+		&lt;div class="box2"&gt;2&lt;/div&gt;
+		&lt;div class="box3"&gt;3&lt;/div&gt;
+		&lt;div class="box4"&gt;4&lt;/div&gt;
+		&lt;div class="box5"&gt;5&lt;/div&gt;
+		&lt;div class="box6"&gt;6&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+________________________________________
+Parent component
+&lt;div (mousedown)="cubeRef.mouseDown = true" (mouseup)="cubeRef.mouseDown = false" (mousemove)="cubeRef.rotateCube($event)"&gt;
+	&lt;app-widget-rotatable-cube  #cubeRef  [content]="['1', '2', '3', '4', '5', '6']" &gt;&lt;/app-widget-rotatable-cube&gt;
+&lt;/div&gt;
+	</pre>
+					</code>
+				</mat-tab>
+				<mat-tab label="TS">
+					<code>
+						<pre>
+&#64;Input()
+public cubeContainerRef!: HTMLElement;
+&#64;ViewChild('cube') public cube!: ElementRef;
+
+public mouseDown = false;
+
+public ngAfterViewInit(): void &#123;
+	document.querySelector('body')?.classList.add('no-user-select')
+&#125;
+
+public rotateCube(mouseEvent: MouseEvent): void &#123;
+	if (this.mouseDown) &#123;
+		this.cube.nativeElement.style.transform = `rotateX($&#123;-mouseEvent.y *0.75&#125;deg) rotateY($&#123;mouseEvent.x *0.75 &#125;deg)  translateZ(0px)`;
+	&#125;
+&#125;			
+						</pre>
+					</code>
+				</mat-tab>
+				<mat-tab label="SCSS">
+					<code>
+						<pre>
+.box1,
+.box2,
+.box3,
+.box4,
+.box5,
+.box6  &#123;
+	font-size: 60px;
+	border: 2px solid rgb(0, 0, 0);
+	width: 100px;
+	text-align: center;
+	height: 100px;
+	position: absolute;
+	opacity: 0.7;
+ &#125;
+
+* &#123;
+	user-select: none;
+ &#125;
+
+.box1  &#123;
+	transform: rotateX(90deg) translateZ(50px);
+	background-color: aquamarine;
+ &#125;
+.box2  &#123;
+	transform: rotateY(90deg) translateZ(50px);
+	background-color: azure ;
+ &#125;
+.box3  &#123;
+	transform: rotateX(180deg) translateZ(50px);
+	background-color: steelblue;
+ &#125;
+.box4  &#123;
+	transform: rotateY(270deg) translateZ(50px);
+	background-color: burlywood ;
+ &#125;
+.box5  &#123;
+	transform: rotateX(270deg) translateZ(50px);
+	background-color: beige ;
+ &#125;
+.box6  &#123;
+	transform: rotateY(0deg) translateZ(50px);
+	background-color: coral ;
+ &#125;
+
+.cube &#123;
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	position: relative;
+	transform: translateZ(0px);
+	transition: transform 0.3s;
+ &#125;
+
+.scene &#123;
+	width: 100px;
+	height: 100px;
+	perspective: 400px;
+ &#125;							
+						</pre>
+					</code>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+	</div>
+</div>

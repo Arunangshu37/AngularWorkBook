@@ -1,0 +1,236 @@
+<div class="container" style="height: 100%;">
+	<div class="row" style="height: 100%;">
+		<div class="col-md-5">
+			<div class="display-flex my-4">
+				<div class="d-flex flex-wrap">
+					@for (item of blocks; track $index) {
+					<button mat-raised-button [class]="[item.colorClass, 'mx-2', 'my-2']"  [id]="'block-'+item.id+'1Button'"
+						(click)="changeZIndex(item.id+'2')" (mousedown)="activatePushBackBehavior($event)"
+						(mouseup)="verifyActivation()">
+							<div class="d-flex" [id]="'block-'+item.id+'1'">
+								<span>{{item.name}}</span> &nbsp;
+								<span>z - {{item.zIndex.partA}}, {{item.zIndex.partB}}</span>
+							</div>
+					</button>
+					}
+				</div>
+			</div>
+			<div class="d-flex justify-content-center height-50 h-300pixel-smaller-device" style=" width: 100%; position: relative">
+				<div class="block-holder d-flex flex-column">
+					<div class="block horizontal-block d-flex">
+						<div class="width-50 c-beige" id="11"></div>
+						<div class="width-50 c-beige" id="12"></div>
+					</div>
+					<div class="block horizontal-block d-flex">
+						<div class="width-50 c-teal" id="21"></div>
+						<div class="width-50 c-teal" id="22"></div>
+					</div>
+				</div>
+				<div class="block-holder d-flex ">
+					<div class="block vertical-block d-flex flex-column">
+						<div class="height-50 c-peru" id="31"></div>
+						<div class="height-50 c-peru" id="32"></div>
+					</div>
+					<div class="block vertical-block d-flex flex-column">
+						<div class="height-50 c-azure" id="41"></div>
+						<div class="height-50 c-azure" id="42"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-7 d-flex flex-column" style="height: 100%;">
+			<mat-tab-group style="overflow: auto; ">
+				<mat-tab label="What to do">
+					<details>
+						<summary style="font-size: larger;"><span class="heading-1">To overlap the right section or the
+								bottom section on another block</span></summary>
+						<ul>
+							<li>click on the respective block button and it. The left section or the bottom section of
+								the block will overlap the depending upon the z-index of the respective blocks.</li>
+							<li>Check out the z-index of each block mentioned in the respective block button</li>
+						</ul>
+					</details>
+					<details>
+						<summary style="font-size: larger;"><span class="heading-1">To overlap the left section or the
+								top section on another block</span></summary>
+						<ul>
+							<li>click and hold on the block of whose top section/ or the left section you want to
+								<strong>push below</strong> the block adjacent to it.</li>
+							<li>After 1 sec the block button will become inactive and you will need to click on the
+								block that you want to bring above the left/top section of the block you just made
+								inactive</li>
+							<li>Once you are done with the former step all the buttons will now be in active state. Well
+								done you have successfully pushed the top/left section of your block underneath another
+								block 😄</li>
+						</ul>
+					</details>
+
+
+
+				</mat-tab>
+				<mat-tab label="HTML">
+					<code>
+	<pre>
+		&lt;div class="display-flex my-4"&gt;
+			&lt;div class="d-flex justify-content-center"&gt;
+			&#64;for (item of blocks; track $index)  &#123;
+					&lt;button mat-raised-button [class]="item.colorClass" 
+						[id]="'block1button-'+item.id+'1'"
+						(click)="changeZIndex(item.id+'2')" 
+						(mousedown)="activatePushBackBehavior($event)" 
+						(mouseup)="verifyActivation()" &gt; &#123; &#123; item.name &#125; &#125;&lt;/button&gt;
+				&#125;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class="d-flex justify-content-center height-50" style=" width: 100%; position: relative"&gt;
+			&lt;div class="block-holder d-flex flex-column"&gt;
+				&lt;div class="block horizontal-block d-flex"&gt;
+					&lt;div class="width-50 c-beige " id="11"&gt;&lt;/div&gt;
+					&lt;div class="width-50 c-beige " id="12"&gt;&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class="block horizontal-block d-flex"&gt;
+					&lt;div class="width-50 c-teal" id="21"&gt;&lt;/div&gt;
+					&lt;div class="width-50 c-teal" id="22"&gt;&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class="block-holder d-flex "&gt;
+				&lt;div class="block vertical-block d-flex flex-column"&gt;
+					&lt;div class="height-50 c-peru" id="31"&gt;&lt;/div&gt;
+					&lt;div class="height-50 c-peru" id="32"&gt;&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class="block vertical-block d-flex flex-column"&gt;
+					&lt;div class="height-50 c-azure" id="41"&gt;&lt;/div&gt;
+					&lt;div class="height-50 c-azure" id="42"&gt;&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;		
+	</pre>
+</code>
+
+				</mat-tab>
+				<mat-tab label="TS">
+					<code>
+<pre>
+		private elementMap: Map&lt;string, boolean&gt; = new Map();
+		private counter: number = 0;
+		private intervalId!: ReturnType&lt;typeof setTimeout&gt;;
+		private zIndex: number = 0;
+		public blocks!: Block[];
+	
+		public constructor()&#123;
+			this.blocks = [
+				new Block('1', 'c-beige', 'block1'),
+				new Block('2', 'c-teal','block2'),
+				new Block('3', 'c-peru','block3'),
+				new Block('4', 'c-azure','block4'),
+			]	
+		&#125;
+	
+		public changeZIndex(blockId: string): void &#123;
+			const disabledItem = Array.from(this.elementMap.entries()).find((element: [string, boolean]) =&gt; element[1]);
+			if (disabledItem) &#123;
+				const buttonId = disabledItem?.[0] as string;
+				const partABlockId = buttonId.split('-')[1];
+				document.getElementById(buttonId)?.removeAttribute('disabled')
+				const newZIndex = Number(document.getElementById(blockId)?.style.zIndex) + 1;
+				(document.getElementById(partABlockId) as HTMLElement).style.zIndex = newZIndex.toString();
+				this.elementMap.set(buttonId, false);
+				return;
+			&#125;
+			const block = this.blocks.find((block: Block) =&gt;blockId === `$&#123;block.id&#125;2`)
+			if(block)&#123;
+				(document.getElementById(`$&#123;block.id&#125;2`) as HTMLElement).style.zIndex = (++this.zIndex).toString();
+			&#125;
+		&#125;
+	
+		public activatePushBackBehavior(event: MouseEvent): void &#123;
+			this.counter = 0;
+			const parentElementId = (&lt;HTMLElement&gt;event.target).parentElement?.id as string;
+			console.log('activation stared');
+			this.intervalId = setInterval(() =&gt; &#123;
+				this.counter++;
+				if (this.counter == 1) &#123;
+					document.getElementById(parentElementId)?.setAttribute('disabled', 'true');
+					this.elementMap.set(parentElementId, true);
+					clearInterval(this.intervalId);
+				&#125;
+				console.log(this.counter);
+			&#125;, 1000);
+		&#125;
+	
+		public verifyActivation(): void &#123;
+			if (this.counter != 1) &#123;
+				clearInterval(this.intervalId);
+				console.log('failed to activate due to not meeting activation criteria');
+				this.counter = 0;
+				return;
+			&#125;
+		&#125;
+	</pre>
+</code>
+				</mat-tab>
+				<mat-tab label="SCSS">
+					<code>
+<pre>
+		.block-holder  &#123;
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			justify-content: space-evenly;
+		 &#125;
+		
+		.horizontal-block  &#123;
+			height: 20%;
+			border: 1px solid lightgrey;
+		 &#125;
+		
+		.vertical-block  &#123;
+			width: 20%;
+			border: 1px solid rgb(182, 182, 182);
+		 &#125;
+		
+		.block  &#123;
+			box-shadow: 0px 0px 1px 0px steelblue inset;
+		 &#125;
+		
+		.block:hover  &#123;
+			box-shadow: 0px 0px 2px 0px steelblue;
+		 &#125;
+		
+		.c-beige  &#123;
+			background-color: beige;
+		 &#125;
+		
+		.c-teal  &#123;
+			background-color: teal;
+		 &#125;
+		
+		.c-peru  &#123;
+			background-color: peru;
+		 &#125;
+		
+		.c-azure  &#123;
+			background-color: azure;
+		 &#125;
+		
+		.width-50  &#123;
+			width: 50%;
+		 &#125;
+		
+		.height-50  &#123;
+			height: 50%;
+		 &#125;
+		
+		
+		
+		</pre>
+	</code>
+				</mat-tab>
+			</mat-tab-group>
+
+		</div>
+	</div>
+
+
+
+</div>

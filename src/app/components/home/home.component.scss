@@ -1,0 +1,28 @@
+.side-nav-container {
+	flex: 1;
+}
+
+
+.side-nav {
+	width: 25%;
+}
+
+.nav-bar{
+	display: flex;
+}
+
+.menu-button{
+	display: none;
+}
+
+@media only screen and (max-width: 680px) {
+	.side-nav {
+		width: 100%;
+	}
+	.nav-bar{
+		display: none;
+	}
+	.menu-button{
+		display: block;
+	}
+}

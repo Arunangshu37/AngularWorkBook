@@ -1,0 +1,9 @@
+.w-25vw{
+	width: 25vw;
+}
+
+@media only screen and (max-width: 680px) {
+	.w-25vw{
+		width: 100vw;
+	}
+}

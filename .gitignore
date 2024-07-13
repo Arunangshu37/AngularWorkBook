@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/angular-work-book-app
 
 # Node
 /node_modules

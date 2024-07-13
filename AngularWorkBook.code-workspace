@@ -49,6 +49,34 @@
 				},
 				"group": "build"
 			},
+			{
+				"isBackground": true,
+				"label": "Build",
+				"command": "npm run build",
+				"type": "shell",
+				"args": [],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			},
+			{
+				"isBackground": true,
+				"label": "Build:Deploy",
+				"command": "npm run build:deploy",
+				"type": "shell",
+				"args": [],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			},
 			
 			
 		]

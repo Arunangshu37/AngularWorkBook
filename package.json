@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=4600 -o",
-    "build": "ng build && xcopy /e \"..\\angular-work-book-app\\browser\\*\" \"..\\angular-work-book-app\\\" && rd /s/q  ..\\angular-work-book-app\\browser\\",
+    "build": "ng build --configuration=production",
+	"build:deploy": "powershell ./deployAngularWorkbookApp.ps1 -verb runas",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint:fix": "ng lint --fix"
